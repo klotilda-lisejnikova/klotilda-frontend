@@ -95,14 +95,20 @@ export default function HomePage() {
 
           <h1
             className="font-serif text-7xl font-light tracking-[0.15em] text-stone-800 md:text-[9rem] md:leading-none"
-            style={{ animation: "fade-up 0.9s ease both", animationDelay: "0.15s" }}
+            style={{
+              animation: "fade-up 0.9s ease both",
+              animationDelay: "0.15s",
+            }}
           >
             {t("hero.title")}
           </h1>
 
           <div
             className="mt-8 flex items-center gap-5"
-            style={{ animation: "fade-up 0.9s ease both", animationDelay: "0.3s" }}
+            style={{
+              animation: "fade-up 0.9s ease both",
+              animationDelay: "0.3s",
+            }}
           >
             <div className="h-px w-16 bg-stone-300" />
             <p className="text-[0.65rem] font-light tracking-[0.35em] text-stone-500 uppercase">
@@ -117,7 +123,10 @@ export default function HomePage() {
           href="#about"
           aria-label={t("hero.scroll")}
           className="absolute bottom-10 flex flex-col items-center gap-2.5 text-stone-400 transition-colors hover:text-stone-600"
-          style={{ animation: "fade-up 0.9s ease both", animationDelay: "0.6s" }}
+          style={{
+            animation: "fade-up 0.9s ease both",
+            animationDelay: "0.6s",
+          }}
         >
           <span className="text-[0.6rem] tracking-[0.35em] uppercase">
             {t("hero.scroll")}
@@ -139,7 +148,7 @@ export default function HomePage() {
         </a>
       </section>
 
-      {/* ─── ABOUT ────────────────────────────────────── */}
+      {/* ─── ABOUT ──────────────────────────────────────  text*/}
       <section id="about" className="scroll-mt-16 py-28 md:py-36">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
@@ -147,7 +156,7 @@ export default function HomePage() {
             <div className="flex flex-col justify-center">
               <div className="mb-8 flex items-end gap-3">
                 <span
-                  className="select-none font-serif text-9xl font-light leading-none text-stone-200"
+                  className="font-serif text-9xl leading-none font-light text-stone-200 select-none"
                   aria-hidden="true"
                 >
                   {t("about.number")}
@@ -199,7 +208,7 @@ export default function HomePage() {
               </div>
               <div
                 aria-hidden="true"
-                className="absolute -bottom-5 -right-5 hidden h-28 w-28 md:block"
+                className="absolute -right-5 -bottom-5 hidden h-28 w-28 md:block"
                 style={{ background: "#d4c4a8" }}
               />
             </div>
@@ -216,7 +225,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="mb-14 flex items-end gap-3">
             <span
-              className="select-none font-serif text-9xl font-light leading-none text-stone-300/60"
+              className="font-serif text-9xl leading-none font-light text-stone-300/60 select-none"
               aria-hidden="true"
             >
               {t("gallery.number")}
@@ -247,7 +256,7 @@ export default function HomePage() {
                           "repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(255,255,255,0.07) 18px, rgba(255,255,255,0.07) 19px)",
                       }}
                     />
-                    <div className="absolute right-3 top-3">
+                    <div className="absolute top-3 right-3">
                       <span
                         className="px-2.5 py-1 text-[0.6rem] tracking-[0.2em] uppercase"
                         style={{
@@ -322,7 +331,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="mb-16 flex items-end gap-3">
             <span
-              className="select-none font-serif text-9xl font-light leading-none text-stone-200"
+              className="font-serif text-9xl leading-none font-light text-stone-200 select-none"
               aria-hidden="true"
             >
               {t("contact.number")}
@@ -389,7 +398,13 @@ export default function HomePage() {
                 >
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                   <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeWidth="2" />
+                  <line
+                    x1="17.5"
+                    y1="6.5"
+                    x2="17.51"
+                    y2="6.5"
+                    strokeWidth="2"
+                  />
                 </svg>
               </div>
               <div>
