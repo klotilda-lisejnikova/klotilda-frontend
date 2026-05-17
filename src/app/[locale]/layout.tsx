@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -11,13 +11,28 @@ const geist = Geist({
   variable: "--font-geist",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Klotilda",
-    template: "%s | Klotilda",
-  },
-  description: "Originální keramika, textil a výšivky",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  return {
+    title: {
+      default: t("title"),
+      template: `%s | Klotilda`,
+    },
+    description: t("description"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      locale: locale === "cs" ? "cs_CZ" : "en_US",
+      type: "website",
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

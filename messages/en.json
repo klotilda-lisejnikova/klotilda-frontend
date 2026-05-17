@@ -9,10 +9,43 @@
     "copyright": "© 2025 Klotilda. All rights reserved.",
     "tagline": "Original ceramics, textiles and embroidery"
   },
+  "metadata": {
+    "title": "Klotilda — Original Ceramics, Textiles & Embroidery",
+    "description": "Handmade ceramics, textiles, and embroidery by a Czech artist. Each piece is one of a kind."
+  },
   "home": {
     "hero": {
       "title": "Klotilda",
-      "subtitle": "Original ceramics, textiles and embroidery"
+      "subtitle": "Original ceramics · textiles · embroidery",
+      "scroll": "Explore"
+    },
+    "about": {
+      "number": "01",
+      "title": "About",
+      "bio1": "My name is Klotilda and I create in Prague. My work grows from a love of traditional crafts — ceramics, weaving, and embroidery — which I connect with a contemporary sensibility.",
+      "bio2": "Each piece is made by hand in my studio, without rush. I believe the objects around us can be not only beautiful but deeply personal.",
+      "crafts": {
+        "ceramics": "Ceramics",
+        "textiles": "Textiles",
+        "embroidery": "Embroidery"
+      }
+    },
+    "gallery": {
+      "number": "02",
+      "title": "Gallery",
+      "subtitle": "A selection of recent works"
+    },
+    "cta": {
+      "title": "Originals for Sale",
+      "subtitle": "Each piece is unique and waiting for its new owner.",
+      "button": "Visit the Shop"
+    },
+    "contact": {
+      "number": "03",
+      "title": "Contact",
+      "subtitle": "I'm happy to talk about collaborations, commissions, or just say hello.",
+      "email": "klotilda@klotilda.cz",
+      "instagram": "@klotilda_art"
     }
   }
 }

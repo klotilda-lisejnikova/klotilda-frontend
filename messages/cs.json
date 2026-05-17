@@ -9,10 +9,43 @@
     "copyright": "© 2025 Klotilda. Všechna práva vyhrazena.",
     "tagline": "Originální keramika, textil a výšivky"
   },
+  "metadata": {
+    "title": "Klotilda — Originální keramika, textil a výšivky",
+    "description": "Ručně vyráběná keramika, textilní výrobky a výšivky od české umělkyně. Každý kus je originál."
+  },
   "home": {
     "hero": {
       "title": "Klotilda",
-      "subtitle": "Originální keramika, textil a výšivky"
+      "subtitle": "Originální keramika · textil · výšivky",
+      "scroll": "Procházet"
+    },
+    "about": {
+      "number": "01",
+      "title": "O mně",
+      "bio1": "Jmenuji se Klotilda a tvořím v Praze. Moje práce vyrůstá z lásky k tradičním řemeslům — keramice, tkaní a vyšívání — která propojuji se současným cítěním.",
+      "bio2": "Každý kus vzniká v mém ateliéru ručně, bez spěchu. Věřím, že předměty kolem nás mohou být nejen krásné, ale i hluboce osobní.",
+      "crafts": {
+        "ceramics": "Keramika",
+        "textiles": "Textil",
+        "embroidery": "Výšivky"
+      }
+    },
+    "gallery": {
+      "number": "02",
+      "title": "Galerie",
+      "subtitle": "Výběr z posledních prací"
+    },
+    "cta": {
+      "title": "Originály k prodeji",
+      "subtitle": "Každý kus je jedinečný a čeká na svého nového majitele.",
+      "button": "Přejít do e-shopu"
+    },
+    "contact": {
+      "number": "03",
+      "title": "Kontakt",
+      "subtitle": "Ráda si popovídám o spolupráci, zakázkách nebo jen tak.",
+      "email": "klotilda@klotilda.cz",
+      "instagram": "@klotilda_art"
     }
   }
 }
