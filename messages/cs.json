@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "about": "O mně",
+    "gallery": "Galerie",
+    "shop": "E-shop",
+    "contact": "Kontakt"
+  },
+  "footer": {
+    "copyright": "© 2025 Klotilda. Všechna práva vyhrazena.",
+    "tagline": "Originální keramika, textil a výšivky"
+  },
+  "home": {
+    "hero": {
+      "title": "Klotilda",
+      "subtitle": "Originální keramika, textil a výšivky"
+    }
+  }
+}

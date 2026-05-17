@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(Get-ChildItem -Recurse -Depth 3)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(git ls-tree *)",
+      "WebFetch(domain:github.com)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\klotilda\\\\klotilda-frontend\" -Force | ForEach-Object { $_.FullName })",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\eleansphere\" -Force)",
+      "Bash(Select-Object Name, Mode)",
+      "Bash(npx create-next-app@latest *)",
+      "Bash(mkdir -p /tmp/klotilda_backup)",
+      "Bash(mv /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/.gitignore_backup /tmp/klotilda_backup/)",
+      "Bash(mv /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/README_BACKUP.md /tmp/klotilda_backup/)",
+      "Bash(mv /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/STRATEGY.md /tmp/klotilda_backup/)",
+      "Bash(npx create-next-app@15 *)",
+      "Bash(mv /tmp/klotilda_backup/.claude /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/)",
+      "Bash(mv /tmp/klotilda_backup/STRATEGY.md /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/)",
+      "Bash(rm /tmp/klotilda_backup/.gitignore_backup /tmp/klotilda_backup/README_BACKUP.md)",
+      "Bash(cp -r /tmp/klotilda_backup/.claude/. /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/.claude/)",
+      "Bash(cp /tmp/klotilda_backup/STRATEGY.md /c/Users/frane/Documents/projekty/klotilda/klotilda-frontend/)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)"
+    ]
+  }
+}

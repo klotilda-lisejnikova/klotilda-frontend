@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "about": "About",
+    "gallery": "Gallery",
+    "shop": "Shop",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© 2025 Klotilda. All rights reserved.",
+    "tagline": "Original ceramics, textiles and embroidery"
+  },
+  "home": {
+    "hero": {
+      "title": "Klotilda",
+      "subtitle": "Original ceramics, textiles and embroidery"
+    }
+  }
+}
