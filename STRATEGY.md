@@ -6,27 +6,28 @@ Prezentační web a e-shop umělce na doméně **klotilda.cz**.
 
 ## Přehled projektu
 
-| | |
-|---|---|
-| **Doména** | klotilda.cz (již registrována) |
-| **Účel** | Prezentace umělce + prodej originálních děl |
-| **Deploy** | Railway.com |
-| **DB** | PostgreSQL (Railway managed) |
-| **Jazyky** | CZ / EN |
+|            |                                             |
+| ---------- | ------------------------------------------- |
+| **Doména** | klotilda.cz (již registrována)              |
+| **Účel**   | Prezentace umělce + prodej originálních děl |
+| **Deploy** | Railway.com                                 |
+| **DB**     | PostgreSQL (Railway managed)                |
+| **Jazyky** | CZ / EN                                     |
 
 ### Tři repozitáře
 
-| Repo | Popis | Deploy |
-|---|---|---|
+| Repo                | Popis                                | Deploy                    |
+| ------------------- | ------------------------------------ | ------------------------- |
 | `klotilda-frontend` | Zákaznický web (prezentace + e-shop) | Railway — Next.js service |
-| `klotilda-api` | Backend API (be-core based) | Railway — Node.js service |
-| `klotilda-admin` | Admin panel (správa e-shopu) | Railway — Next.js service |
+| `klotilda-api`      | Backend API (be-core based)          | Railway — Node.js service |
+| `klotilda-admin`    | Admin panel (správa e-shopu)         | Railway — Next.js service |
 
 ---
 
 ## Tech Stack
 
 ### Frontend (`klotilda-frontend`, `klotilda-admin`)
+
 - **Next.js 15** — App Router, SSR/SSG, SEO optimalizace
 - **TypeScript**
 - **Tailwind CSS** — styling
@@ -35,13 +36,15 @@ Prezentační web a e-shop umělce na doméně **klotilda.cz**.
 - **@eleansphere/service-core** — typed service vrstva pro volání API
 
 ### Backend (`klotilda-api`)
+
 - **Node.js 22+** + **Express.js**
 - **@eleansphere/be-core v1.7.0** — CRUD, file upload, auth (JWT + bcrypt)
 - **Sequelize 6** + **PostgreSQL** — ORM + databáze
 - **Comgate** — platební brána (karta + QR kód)
-- **Nodemailer / Resend** — potvrzovací emaily
+- **Nodemailer** (přes be-core `createEmailService`) — potvrzovací emaily přes SMTP účet klotilda.cz
 
 ### Infrastruktura
+
 - **Railway.com** — hosting (frontend, backend, PostgreSQL)
 - **GitHub Actions** — CI (build check, testy)
 - **klotilda.cz** → Railway CNAME (SSL automaticky)
@@ -107,6 +110,7 @@ password  string  (povinné, bcrypt hash — be-core auth)
 Be-core automaticky generuje CRUD. Custom logika přes plugin.
 
 ### Produkty (be-core CRUD)
+
 ```
 GET    /api/products           seznam s paginací (?page=1&limit=20&category=keramika)
 GET    /api/products/:id       detail produktu
@@ -118,6 +122,7 @@ GET    /api/products/:id/image1   stažení obrázku (veřejné)
 ```
 
 ### Objednávky (custom plugin — kvůli platební logice)
+
 ```
 POST   /api/orders             vytvoření objednávky → vrátí Comgate redirect URL
 GET    /api/orders             seznam objednávek (chráněno JWT)
@@ -127,6 +132,7 @@ POST   /api/comgate/webhook    Comgate notifikace o platbě (veřejné, ověřen
 ```
 
 ### Auth (be-core built-in)
+
 ```
 POST   /api/auth/login         přihlášení admina → { token, email }
 ```
@@ -144,8 +150,8 @@ POST   /api/auth/login         přihlášení admina → { token, email }
 - [x] Základní layout komponenty: `<Header>`, `<Footer>`, `<Navigation>`
 - [x] Konfigurace Prettier
 - [x] GitHub Actions CI: build check na každý push
-- [ ] Railway projekt — napojení GitHub repo, automatický deploy z `main`
-- [ ] Konfigurace domény klotilda.cz (DNS CNAME → Railway)
+- [x] Railway projekt — napojení GitHub repo, automatický deploy z `main`
+- [x] Konfigurace domény klotilda.cz (DNS CNAME → Railway)
 
 **Výstup**: Web dostupný na klotilda.cz (i když jen s prázdnou stránkou).
 
@@ -156,6 +162,7 @@ POST   /api/auth/login         přihlášení admina → { token, email }
 **Cíl**: Vizitka umělce — statický obsah, bez API.
 
 Sekce na landing page (`/` nebo `/[locale]/`):
+
 - **Hero** — velká fotka, jméno umělce, tagline
 - **O umělci** — bio, styl, inspirace (text + fotky)
 - **Portfolio / galerie** — grid prací (hardcoded nebo z API ve fázi 4)
@@ -163,11 +170,12 @@ Sekce na landing page (`/` nebo `/[locale]/`):
 - **Kontakt** — email, social media, případně formulář
 
 Technické úkoly:
-- [ ] Responzivní design (mobile-first, breakpointy: sm/md/lg)
-- [ ] CZ/EN překlady všech textů (next-intl translation files)
+
+- [x] Responzivní design (mobile-first, breakpointy: sm/md/lg)
+- [x] CZ/EN překlady všech textů (next-intl translation files)
 - [ ] SEO metadata (title, description, og:image pro každou stránku)
 - [ ] Optimalizace obrázků (Next.js `<Image>`)
-- [ ] Přepínač jazyka v navigaci
+- [x] Přepínač jazyka v navigaci
 
 **Výstup**: Kompletní landing page v CZ i EN.
 
@@ -177,21 +185,21 @@ Technické úkoly:
 
 **Cíl**: Funkční API pro produkty a objednávky.
 
-- [ ] Nový Node.js/TypeScript projekt, instalace `@eleansphere/be-core`
-- [ ] Konfigurace `.npmrc` pro GitHub Packages (`@eleansphere:registry`)
-- [ ] `src/index.ts` — `createApp()` s modely Product + AdminUser
-- [ ] Plugin pro Orders:
+- [x] Nový Node.js/TypeScript projekt, instalace `@eleansphere/be-core`
+- [x] Konfigurace `.npmrc` pro GitHub Packages (`@eleansphere:registry`)
+- [x] `src/index.ts` — `createApp()` s modely Product + AdminUser
+- [x] Plugin pro Orders:
   - Validace položek + kontrola dostupnosti skladu
   - Vytvoření záznamu v DB
   - Volání Comgate API → získání platební URL
   - Vrácení redirect URL frontendu
-- [ ] Comgate webhook handler:
-  - Ověření podpisu (HMAC)
+- [x] Comgate webhook handler:
+  - Ověření merchant ID + shared secret
   - Aktualizace `paymentStatus` na objednávce
   - Snížení `stockCount` u zakoupených produktů
-  - Odeslání potvrzovacího emailu zákazníkovi
+  - Odeslání potvrzovacího emailu zákazníkovi (Resend)
   - Odeslání interní notifikace (admin email)
-- [ ] ENV proměnné: `DATABASE_URL`, `JWT_SECRET`, `COMGATE_MERCHANT_ID`, `COMGATE_SECRET`, `SMTP_*`
+- [x] ENV proměnné: `DATABASE_URL`, `JWT_SECRET`, `COMGATE_MERCHANT_ID`, `COMGATE_SECRET`, `SMTP_HOST/PORT/USER/PASS`, `FROM_EMAIL`, `ADMIN_EMAIL`
 - [ ] Deploy na Railway (Node.js service + PostgreSQL addon)
 - [ ] Sandbox testování Comgate
 
@@ -204,12 +212,14 @@ Technické úkoly:
 **Cíl**: Funkční zákaznický e-shop napojený na API.
 
 #### Service vrstva
+
 - [ ] Instalace `@eleansphere/service-core`
 - [ ] `ProductService` (extends `AbstractFileService`)
 - [ ] `OrderService` (extends `AbstractCrudService`)
 - [ ] `ServiceContainer` — singleton, `baseUrl` z ENV
 
 #### Stránky e-shopu
+
 - [ ] `/shop` — výpis produktů
   - Tabs/filtry: Vše / Keramika / Textil / Výšivky
   - Grid karet: foto, název, cena, stav (skladem / vyprodáno)
@@ -221,12 +231,14 @@ Technické úkoly:
   - Tlačítko "Přidat do košíku" (disabled pokud vyprodáno)
 
 #### Košík (Zustand)
+
 - [ ] Store: `{ items: CartItem[], addItem, removeItem, clearCart }`
 - [ ] Perzistence v `localStorage`
 - [ ] Sidebar nebo stránka `/cart` — seznam, quantities, celková cena
 - [ ] Badge s počtem položek v navigaci
 
 #### Checkout (multi-step, `/checkout`)
+
 - [ ] Krok 1 — Kontaktní údaje (jméno, příjmení, email, telefon, adresa)
 - [ ] Krok 2 — Doprava (Zásilkovna / Česká pošta / Osobní odběr v Praze)
 - [ ] Krok 3 — Platba (Karta / QR kód — oboje přes Comgate)
@@ -247,6 +259,7 @@ Technické úkoly:
 - [ ] Protected routes (redirect na login bez tokenu)
 
 #### Správa produktů
+
 - [ ] Seznam produktů (tabulka: název, kategorie, cena, sklad, aktivní)
 - [ ] Formulář pro vytvoření/úpravu produktu
   - Název CZ/EN, popis CZ/EN, cena, kategorie, sklad
@@ -255,6 +268,7 @@ Technické úkoly:
 - [ ] Smazání produktu
 
 #### Správa objednávek
+
 - [ ] Seznam objednávek (filtrování: stav platby, stav objednávky, datum)
 - [ ] Detail objednávky (zákazník, položky, doprava, platba)
 - [ ] Změna stavu objednávky (přijato → zpracovávám → odesláno → doručeno)
@@ -280,39 +294,47 @@ Technické úkoly:
 
 ## Otevřené otázky (rozhodnutí pro pozdější fáze)
 
-| Otázka | Výchozí předpoklad | Fáze |
-|---|---|---|
-| Počet obrázků na produkt | 3 (image1, image2, image3 jako samostatné BLOB sloupce) | 3 |
-| Zásilkovna integrace | Pevné typy dopravy bez widget API (jednodušší) | 4 |
-| Email provider | Resend (jednoduchá integrace, free tier) | 3 |
-| Staging prostředí | Jeden environment (dev local + prod Railway) | 1 |
-| Portfolio na landing page | Hardcoded v první fázi, napojit na API produkty volitelně | 2 |
-| Kategorie produktů | Keramika / Textil / Výšivky (lze rozšířit v adminu) | 3 |
+| Otázka                    | Výchozí předpoklad                                        | Fáze |
+| ------------------------- | --------------------------------------------------------- | ---- |
+| Počet obrázků na produkt  | 3 (image1, image2, image3 jako samostatné BLOB sloupce)   | 3    |
+| Zásilkovna integrace      | Pevné typy dopravy bez widget API (jednodušší)            | 4    |
+| Email provider            | Resend (jednoduchá integrace, free tier)                  | 3    |
+| Staging prostředí         | Jeden environment (dev local + prod Railway)              | 1    |
+| Portfolio na landing page | Hardcoded v první fázi, napojit na API produkty volitelně | 2    |
+| Kategorie produktů        | Keramika / Textil / Výšivky (lze rozšířit v adminu)       | 3    |
 
 ---
 
 ## ENV proměnné (přehled)
 
 ### klotilda-api
+
 ```env
 DATABASE_URL=postgresql://...
 JWT_SECRET=...
 COMGATE_MERCHANT_ID=...
 COMGATE_SECRET=...
-SMTP_HOST=...
+COMGATE_TEST=true     # false v produkci
+SMTP_HOST=mail.klotilda.cz
 SMTP_PORT=587
-SMTP_USER=...
+SMTP_SECURE=false
+SMTP_USER=info@klotilda.cz
 SMTP_PASS=...
-ADMIN_EMAIL=...
+FROM_EMAIL=info@klotilda.cz
+ADMIN_EMAIL=...       # váš Gmail — emailový server klotilda.cz přeposílá sem
+FRONTEND_URL=https://klotilda.cz
 NODE_AUTH_TOKEN=...   # GitHub Packages pro @eleansphere
+PORT=3001
 ```
 
 ### klotilda-frontend
+
 ```env
 NEXT_PUBLIC_API_URL=https://api.klotilda.cz
 ```
 
 ### klotilda-admin
+
 ```env
 NEXT_PUBLIC_API_URL=https://api.klotilda.cz
 ```
