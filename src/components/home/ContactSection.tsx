@@ -1,5 +1,9 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { getContactTranslations } from "@/i18n/home";
+import FadeIn from "@/components/ui/FadeIn";
 
 export default function ContactSection() {
   const t = useTranslations("home");
@@ -8,7 +12,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="scroll-mt-16 py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
-        <div className="mb-16 flex items-end gap-3">
+        <FadeIn className="mb-16 flex items-end gap-3">
           <span
             className="font-serif text-9xl leading-none font-light text-stone-200 select-none"
             aria-hidden="true"
@@ -23,28 +27,39 @@ export default function ContactSection() {
               {contact.subtitle}
             </p>
           </div>
-        </div>
+        </FadeIn>
 
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-0">
+        <FadeIn
+          delay={0.2}
+          className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-0"
+        >
           <a
             href={`mailto:${contact.email}`}
             className="group flex items-center gap-5 text-stone-600 transition-colors hover:text-stone-900"
           >
-            <div className="flex h-12 w-12 items-center justify-center border border-stone-300 transition-colors group-hover:border-stone-600">
+            <motion.div
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-stone-200"
+              whileHover={{
+                scale: 1.12,
+                backgroundColor: "rgba(214,197,178,0.22)",
+                borderColor: "#a8967e",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="m2 7 10 7 10-7" />
+                <rect x="2" y="4" width="20" height="16" rx="3" />
+                <path d="M2 7.5 10.5 13a2.5 2.5 0 0 0 3 0L22 7.5" />
               </svg>
-            </div>
+            </motion.div>
             <div>
               <p className="mb-0.5 text-[0.6rem] tracking-[0.3em] text-stone-400 uppercase">
                 Email
@@ -59,27 +74,41 @@ export default function ContactSection() {
           />
 
           <a
-            href="https://instagram.com/klotilda_art"
+            href="https://instagram.com/klotilda.lisejnikova"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-5 text-stone-600 transition-colors hover:text-stone-900"
           >
-            <div className="flex h-12 w-12 items-center justify-center border border-stone-300 transition-colors group-hover:border-stone-600">
+            <motion.div
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-stone-200"
+              whileHover={{
+                scale: 1.12,
+                backgroundColor: "rgba(214,197,178,0.22)",
+                borderColor: "#a8967e",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeWidth="2" />
+                <rect x="2" y="2" width="20" height="20" rx="6" />
+                <circle cx="12" cy="12" r="4" />
+                <circle
+                  cx="17.5"
+                  cy="6.5"
+                  r="0.8"
+                  fill="currentColor"
+                  stroke="none"
+                />
               </svg>
-            </div>
+            </motion.div>
             <div>
               <p className="mb-0.5 text-[0.6rem] tracking-[0.3em] text-stone-400 uppercase">
                 Instagram
@@ -87,7 +116,7 @@ export default function ContactSection() {
               <p className="font-serif tracking-wide">{contact.instagram}</p>
             </div>
           </a>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

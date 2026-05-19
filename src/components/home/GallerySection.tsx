@@ -1,9 +1,21 @@
 "use client";
 
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { getGalleryTranslations } from "@/i18n/home";
 import { artworks } from "@/data/artworks";
+import FadeIn from "@/components/ui/FadeIn";
 import type { Locale } from "@/types/locale";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.1 },
+  }),
+};
 
 export default function GallerySection() {
   const t = useTranslations("home");
@@ -17,7 +29,7 @@ export default function GallerySection() {
       style={{ background: "#f5efe6" }}
     >
       <div className="mx-auto max-w-6xl px-4 md:px-8">
-        <div className="mb-14 flex items-end gap-3">
+        <FadeIn className="mb-14 flex items-end gap-3">
           <span
             className="font-serif text-9xl leading-none font-light text-stone-300/60 select-none"
             aria-hidden="true"
@@ -32,25 +44,34 @@ export default function GallerySection() {
               {gallery.subtitle}
             </p>
           </div>
-        </div>
+        </FadeIn>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {artworks.map((artwork) => (
-            <article key={artwork.id} className="group">
+          {artworks.map((artwork, i) => (
+            <motion.article
+              key={artwork.id}
+              className="group"
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+            >
               <div className="relative overflow-hidden">
                 <div
-                  className="aspect-square w-full transition-transform duration-700 group-hover:scale-105"
+                  className="relative aspect-square w-full overflow-hidden transition-transform duration-700 group-hover:scale-105"
                   style={{ background: artwork.gradient }}
                 >
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0"
-                    style={{
-                      backgroundImage:
-                        "repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(255,255,255,0.07) 18px, rgba(255,255,255,0.07) 19px)",
-                    }}
-                  />
-                  <div className="absolute top-3 right-3">
+                  {artwork.image && (
+                    <Image
+                      src={artwork.image}
+                      alt={artwork.name[locale]}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  )}
+                  <div className="absolute top-3 right-3 z-10">
                     <span
                       className="px-2.5 py-1 text-[0.6rem] tracking-[0.2em] uppercase"
                       style={{
@@ -72,7 +93,7 @@ export default function GallerySection() {
                   {artwork.name[locale]}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

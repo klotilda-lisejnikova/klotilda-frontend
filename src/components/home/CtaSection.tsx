@@ -1,6 +1,9 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getCtaTranslations } from "@/i18n/home";
+import FadeIn from "@/components/ui/FadeIn";
 
 export default function CtaSection() {
   const t = useTranslations("home");
@@ -14,7 +17,7 @@ export default function CtaSection() {
           "linear-gradient(135deg, #e8dece 0%, #d9c9ae 50%, #ccbb9c 100%)",
       }}
     >
-      <div className="mx-auto max-w-2xl px-4 text-center">
+      <FadeIn className="mx-auto max-w-2xl px-4 text-center">
         <div
           className="mx-auto mb-10 flex items-center justify-center gap-4"
           aria-hidden="true"
@@ -45,7 +48,7 @@ export default function CtaSection() {
         >
           {cta.button}
         </Link>
-      </div>
+      </FadeIn>
     </section>
   );
 }

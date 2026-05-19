@@ -6,4 +6,5 @@ export type Artwork = {
   category: Record<Locale, string>;
   gradient: string;
   accent: string;
+  image?: string;
 };

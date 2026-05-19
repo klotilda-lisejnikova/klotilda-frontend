@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { getHeroTranslations } from "@/i18n/home";
 
@@ -10,30 +11,43 @@ export default function HeroSection() {
       id="hero"
       className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden px-4 text-center"
     >
+      <Image
+        src="/images/bg_hero.jpg"
+        alt="hero-image"
+        fill
+        className="scale-105 object-cover"
+        style={{ filter: "blur(2px)" }}
+        sizes="100vw"
+        priority
+        aria-hidden="true"
+      />
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #78716c 1px, transparent 1px)",
-          backgroundSize: "36px 36px",
-          opacity: 0.06,
-        }}
+        style={{ background: "rgba(80, 100, 70, 0.2)" }}
       />
 
       <div className="relative z-10 flex flex-col items-center">
         <p
-          className="mb-8 text-[0.65rem] tracking-[0.45em] text-stone-400 uppercase"
-          style={{ animation: "fade-up 0.9s ease both" }}
+          className="mb-8 text-sm tracking-[0.45em] uppercase"
+          style={{
+            animation: "fade-up 0.9s ease both",
+            color: "#ffffff",
+            textShadow: "0 1px 12px rgba(0,0,0,0.5)",
+          }}
         >
           Praha · Česká republika
         </p>
 
         <h1
-          className="font-serif text-7xl font-light tracking-[0.15em] text-stone-800 md:text-[9rem] md:leading-none"
+          className="font-serif text-7xl font-light tracking-[0.15em] md:text-[9rem] md:leading-none"
           style={{
             animation: "fade-up 0.9s ease both",
             animationDelay: "0.15s",
+            color: "#ffffff",
+            textShadow:
+              "0 2px 6px rgba(0,0,0,0.25), 0 12px 48px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.6)",
           }}
         >
           {hero.title}
@@ -46,30 +60,43 @@ export default function HeroSection() {
             animationDelay: "0.3s",
           }}
         >
-          <div className="h-px w-16 bg-stone-300" />
-          <p className="text-[0.65rem] font-light tracking-[0.35em] text-stone-500 uppercase">
+          <div
+            className="h-px w-20"
+            style={{ background: "rgba(255,255,255,0.5)" }}
+          />
+          <p
+            className="text-sm font-light tracking-[0.35em] uppercase"
+            style={{
+              color: "#ffffff",
+              textShadow: "0 1px 10px rgba(0,0,0,0.5)",
+            }}
+          >
             {hero.subtitle}
           </p>
-          <div className="h-px w-16 bg-stone-300" />
+          <div
+            className="h-px w-20"
+            style={{ background: "rgba(255,255,255,0.5)" }}
+          />
         </div>
       </div>
 
       <a
         href="#about"
         aria-label={hero.scroll}
-        className="absolute bottom-10 flex flex-col items-center gap-2.5 text-stone-400 transition-colors hover:text-stone-600"
+        className="absolute bottom-10 flex flex-col items-center gap-3 transition-colors"
         style={{
+          color: "rgba(255,255,255,0.7)",
           animation: "fade-up 0.9s ease both",
           animationDelay: "0.6s",
         }}
       >
-        <span className="text-[0.6rem] tracking-[0.35em] uppercase">
+        <span className="text-xs tracking-[0.35em] uppercase">
           {hero.scroll}
         </span>
         <svg
-          width="14"
-          height="22"
-          viewBox="0 0 14 22"
+          width="22"
+          height="34"
+          viewBox="0 0 22 34"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.2"
@@ -77,8 +104,8 @@ export default function HeroSection() {
           strokeLinejoin="round"
           className="animate-bounce"
         >
-          <line x1="7" y1="1" x2="7" y2="17" />
-          <polyline points="2,12 7,17 12,12" />
+          <line x1="11" y1="1" x2="11" y2="27" />
+          <polyline points="3,19 11,27 19,19" />
         </svg>
       </a>
     </section>
