@@ -76,6 +76,8 @@
   "shop": {
     "title": "Shop",
     "description": "Original handmade works",
+    "heroSubtitle": "Ceramics · Textiles · Embroidery",
+    "productsCount": "{count} items",
     "filters": {
       "all": "All",
       "keramika": "Ceramics",

@@ -47,42 +47,77 @@ export default async function ProductDetailPage({ params }: Props) {
   };
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      {/* Back */}
       <Link
         href="/shop"
-        className="mb-10 inline-flex items-center gap-1 text-sm text-stone-400 hover:text-stone-700"
+        className="mb-10 inline-flex items-center gap-1.5 text-xs tracking-wide text-stone-400 uppercase transition-colors hover:text-stone-700"
       >
-        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
         </svg>
         {t("title")}
       </Link>
 
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="grid gap-10 md:grid-cols-2 md:gap-16">
         <ProductGallery imageUrls={imageUrls} alt={name} />
 
-        <div className="flex flex-col gap-6">
-          <div>
-            <h1 className="text-2xl font-light tracking-wide text-stone-800">{name}</h1>
-            <p className="mt-1 text-sm text-stone-400">
-              {inStock ? t("inStock") : t("soldOut")}
-            </p>
-          </div>
+        {/* Info */}
+        <div className="flex flex-col">
+          {/* Category chip */}
+          <span className="mb-3 self-start rounded-full border border-stone-200 px-3 py-0.5 text-xs tracking-wider text-stone-500 uppercase">
+            {t(`filters.${product.category}`)}
+          </span>
 
-          <p className="text-2xl text-stone-700">
-            {product.price.toLocaleString("cs-CZ")}&nbsp;{t("currency")}
+          {/* Name */}
+          <h1 className="text-2xl font-light leading-snug tracking-wide text-stone-800 sm:text-3xl">
+            {name}
+          </h1>
+
+          {/* Price */}
+          <p className="mt-4 text-3xl font-light tabular-nums text-stone-800">
+            {product.price.toLocaleString("cs-CZ")}&nbsp;
+            <span className="text-xl text-stone-500">{t("currency")}</span>
           </p>
 
+          <div className="my-6 h-px bg-stone-100" />
+
+          {/* Stock status */}
+          <div className="mb-6">
+            {inStock ? (
+              <div className="flex items-center gap-2">
+                <span className="flex h-2 w-2 items-center justify-center">
+                  <span className="absolute h-2 w-2 animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <span className="text-sm text-emerald-700">
+                  {t("inStock")}
+                  <span className="ml-1.5 text-emerald-500/80">
+                    · {product.stockCount}&nbsp;{product.stockCount === 1 ? "kus" : product.stockCount < 5 ? "kusy" : "kusů"}
+                  </span>
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-rose-400" />
+                <span className="text-sm text-rose-600">{t("soldOut")}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Description */}
           {description && (
-            <p className="text-sm leading-relaxed text-stone-600">{description}</p>
+            <p className="mb-8 text-sm leading-relaxed text-stone-500">{description}</p>
           )}
 
-          <AddToCartButton
-            productId={product.id}
-            name={name}
-            price={product.price}
-            inStock={inStock}
-          />
+          <div className="mt-auto">
+            <AddToCartButton
+              productId={product.id}
+              name={name}
+              price={product.price}
+              inStock={inStock}
+            />
+          </div>
         </div>
       </div>
     </section>
