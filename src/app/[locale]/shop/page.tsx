@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { services, ProductCategory } from "@/services";
+
+export const dynamic = 'force-dynamic';
 import CategoryFilter from "@/components/shop/CategoryFilter";
 import ProductCard from "@/components/shop/ProductCard";
 

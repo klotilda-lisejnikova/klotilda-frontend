@@ -5,6 +5,8 @@ import { services } from "@/services";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import ProductGallery from "@/components/shop/ProductGallery";
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: Promise<{ locale: string; id: string }>;
 }
