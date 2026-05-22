@@ -200,7 +200,7 @@ Technické úkoly:
   - Odeslání potvrzovacího emailu zákazníkovi (Resend)
   - Odeslání interní notifikace (admin email)
 - [x] ENV proměnné: `DATABASE_URL`, `JWT_SECRET`, `COMGATE_MERCHANT_ID`, `COMGATE_SECRET`, `SMTP_HOST/PORT/USER/PASS`, `FROM_EMAIL`, `ADMIN_EMAIL`
-- [ ] Deploy na Railway (Node.js service + PostgreSQL addon)
+- [x] Deploy na Railway (Node.js service + PostgreSQL addon)
 - [ ] Sandbox testování Comgate
 
 **Výstup**: API dostupné na `api.klotilda.cz` nebo jako Railway internal service.

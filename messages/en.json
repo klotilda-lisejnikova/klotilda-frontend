@@ -13,6 +13,83 @@
     "title": "Klotilda — Original Ceramics, Textiles & Embroidery",
     "description": "Handmade ceramics, textiles, and embroidery by a Czech artist. Each piece is one of a kind."
   },
+  "checkoutResult": {
+    "successTitle": "Order received",
+    "successBody": "Thank you for your purchase! A confirmation has been sent to your email.",
+    "cancelTitle": "Payment cancelled",
+    "cancelBody": "The payment was not completed. Your order was not created.",
+    "backHome": "Back to home",
+    "tryAgain": "Try again"
+  },
+  "checkout": {
+    "steps": {
+      "contact": "Contact",
+      "shipping": "Shipping",
+      "payment": "Payment",
+      "summary": "Summary"
+    },
+    "contact": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "E-mail",
+      "phone": "Phone (optional)",
+      "street": "Street and house number",
+      "city": "City",
+      "zip": "ZIP code"
+    },
+    "shipping": {
+      "zasilkovna": "Zásilkovna",
+      "ceska_posta": "Czech Post",
+      "osobni_odber": "Personal pickup in Prague",
+      "free": "Free"
+    },
+    "payment": {
+      "card": "Pay by card",
+      "qr": "QR payment",
+      "cardDesc": "Secure online card payment via Comgate",
+      "qrDesc": "Pay by QR code via mobile banking"
+    },
+    "summary": {
+      "items": "Items",
+      "shipping": "Shipping",
+      "total": "Total",
+      "notes": "Order note (optional)",
+      "confirm": "Confirm & pay"
+    },
+    "next": "Continue",
+    "back": "Back",
+    "currency": "CZK",
+    "emptyCart": "Your cart is empty.",
+    "goToShop": "Go to shop",
+    "loading": "Processing order…",
+    "error": "Something went wrong. Please try again."
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "remove": "Remove",
+    "total": "Total",
+    "checkout": "Proceed to checkout",
+    "continueShopping": "Continue shopping",
+    "currency": "CZK"
+  },
+  "shop": {
+    "title": "Shop",
+    "description": "Original handmade works",
+    "filters": {
+      "all": "All",
+      "keramika": "Ceramics",
+      "textil": "Textiles",
+      "vysivky": "Embroidery"
+    },
+    "inStock": "In stock",
+    "soldOut": "Sold out",
+    "addToCart": "Add to cart",
+    "inCart": "In cart",
+    "soldOutBtn": "Sold out",
+    "empty": "No products in this category.",
+    "currency": "CZK"
+  },
   "home": {
     "hero": {
       "title": "Klotilda",

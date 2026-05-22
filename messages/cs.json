@@ -13,6 +13,83 @@
     "title": "Klotilda — Originální keramika, textil a výšivky",
     "description": "Ručně vyráběná keramika, textilní výrobky a výšivky od české umělkyně. Každý kus je originál."
   },
+  "checkoutResult": {
+    "successTitle": "Objednávka přijata",
+    "successBody": "Děkujeme za váš nákup! Potvrzení vám přijde na e-mail.",
+    "cancelTitle": "Platba zrušena",
+    "cancelBody": "Platba nebyla dokončena. Vaše objednávka nebyla vytvořena.",
+    "backHome": "Zpět na úvod",
+    "tryAgain": "Zkusit znovu"
+  },
+  "checkout": {
+    "steps": {
+      "contact": "Kontakt",
+      "shipping": "Doprava",
+      "payment": "Platba",
+      "summary": "Shrnutí"
+    },
+    "contact": {
+      "firstName": "Jméno",
+      "lastName": "Příjmení",
+      "email": "E-mail",
+      "phone": "Telefon (volitelné)",
+      "street": "Ulice a číslo popisné",
+      "city": "Město",
+      "zip": "PSČ"
+    },
+    "shipping": {
+      "zasilkovna": "Zásilkovna",
+      "ceska_posta": "Česká pošta",
+      "osobni_odber": "Osobní odběr v Praze",
+      "free": "Zdarma"
+    },
+    "payment": {
+      "card": "Platba kartou",
+      "qr": "QR platba",
+      "cardDesc": "Zabezpečená online platba kartou přes Comgate",
+      "qrDesc": "Zaplaťte QR kódem přes mobilní bankovnictví"
+    },
+    "summary": {
+      "items": "Položky",
+      "shipping": "Doprava",
+      "total": "Celkem",
+      "notes": "Poznámka k objednávce (volitelné)",
+      "confirm": "Potvrdit a zaplatit"
+    },
+    "next": "Pokračovat",
+    "back": "Zpět",
+    "currency": "Kč",
+    "emptyCart": "Váš košík je prázdný.",
+    "goToShop": "Přejít do e-shopu",
+    "loading": "Zpracovávám objednávku…",
+    "error": "Nastala chyba při vytváření objednávky. Zkuste to prosím znovu."
+  },
+  "cart": {
+    "title": "Košík",
+    "empty": "Váš košík je prázdný.",
+    "remove": "Odebrat",
+    "total": "Celkem",
+    "checkout": "Přejít k pokladně",
+    "continueShopping": "Pokračovat v nákupu",
+    "currency": "Kč"
+  },
+  "shop": {
+    "title": "E-shop",
+    "description": "Originální ručně vyráběná díla",
+    "filters": {
+      "all": "Vše",
+      "keramika": "Keramika",
+      "textil": "Textil",
+      "vysivky": "Výšivky"
+    },
+    "inStock": "Skladem",
+    "soldOut": "Vyprodáno",
+    "addToCart": "Přidat do košíku",
+    "inCart": "V košíku",
+    "soldOutBtn": "Vyprodáno",
+    "empty": "Žádné produkty v této kategorii.",
+    "currency": "Kč"
+  },
   "home": {
     "hero": {
       "title": "Klotilda",

@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import CartDrawer from "@/components/shop/CartDrawer";
 import Navigation from "./Navigation";
 
 export default function Header() {
@@ -14,14 +15,17 @@ export default function Header() {
         >
           KLOTILDA
         </Link>
-        <Navigation
-          links={[
-            { href: "/#about", label: t("about") },
-            { href: "/#gallery", label: t("gallery") },
-            { href: "/shop", label: t("shop") },
-            { href: "/#contact", label: t("contact") },
-          ]}
-        />
+        <div className="flex items-center gap-4">
+          <Navigation
+            links={[
+              { href: "/#about", label: t("about") },
+              { href: "/#gallery", label: t("gallery") },
+              { href: "/shop", label: t("shop") },
+              { href: "/#contact", label: t("contact") },
+            ]}
+          />
+          <CartDrawer />
+        </div>
       </div>
     </header>
   );
