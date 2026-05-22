@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { services, ProductCategory } from "@/services";
-
-export const dynamic = 'force-dynamic';
 import CategoryFilter from "@/components/shop/CategoryFilter";
 import ProductCard from "@/components/shop/ProductCard";
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -35,8 +35,8 @@ export default async function ShopPage({ params, searchParams }: Props) {
       limit: 24,
     });
     products = result.data;
-  } catch {
-    // API nedostupné — zobrazíme prázdný stav
+  } catch (err) {
+    console.error('[ShopPage] Failed to fetch products:', err);
   }
 
   return (

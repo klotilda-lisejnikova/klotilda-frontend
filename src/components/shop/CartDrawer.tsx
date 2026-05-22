@@ -124,7 +124,7 @@ export default function CartDrawer() {
             d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
           />
         </svg>
-        {count > 0 && (
+        {mounted && count > 0 && (
           <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-stone-800 text-[10px] text-white">
             {count}
           </span>
