@@ -15,8 +15,8 @@ export interface CheckoutData {
 }
 
 export const SHIPPING_PRICES: Record<ShippingMethod, number> = {
-  zasilkovna: 89,
-  ceska_posta: 119,
+  zasilkovna: 99,
+  ceska_posta: 129,
   osobni_odber: 0,
 };
 
@@ -29,7 +29,7 @@ export const INITIAL_CHECKOUT: CheckoutData = {
   city: "",
   zip: "",
   shippingMethod: "zasilkovna",
-  shippingPrice: 89,
+  shippingPrice: 99,
   paymentMethod: "card",
   notes: "",
 };

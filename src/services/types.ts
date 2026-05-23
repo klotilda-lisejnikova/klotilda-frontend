@@ -75,6 +75,6 @@ export interface CreateOrder {
 }
 
 export interface PlaceOrderResponse {
-  id: string;
+  orderId: string;
   redirectUrl: string;
 }
