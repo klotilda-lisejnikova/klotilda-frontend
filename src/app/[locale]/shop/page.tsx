@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { services, ProductCategory } from "@/services";
+import { services, Product, ProductCategory } from "@/services";
 import CategoryFilter from "@/components/shop/CategoryFilter";
 import ProductCard from "@/components/shop/ProductCard";
 
@@ -81,7 +81,7 @@ async function ProductList({
 }) {
   const t = await getTranslations({ locale, namespace: "shop" });
 
-  let products: Awaited<ReturnType<typeof services.products.getAll>>["data"] = [];
+  let products: Product[] = [];
   try {
     const result = await services.products.getAll({
       category,

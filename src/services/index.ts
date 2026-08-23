@@ -1,20 +1,17 @@
 import { AbstractServiceContainer } from '@eleansphere/service-core';
-import { OrderService } from './order.service';
-import { ProductService } from './product.service';
+import { productEntity, orderEntity } from '@klotilda/klotilda-service';
 
 export * from './types';
-export * from './product.service';
-export * from './order.service';
 
 class ServiceContainer extends AbstractServiceContainer {
-  readonly products: ProductService;
-  readonly orders: OrderService;
+  readonly products: InstanceType<typeof productEntity.Service>;
+  readonly orders: InstanceType<typeof orderEntity.Service>;
 
   constructor() {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
     super(baseUrl, () => null);
-    this.products = new ProductService(...this.args());
-    this.orders = new OrderService(...this.args());
+    this.products = new productEntity.Service(...this.args());
+    this.orders = new orderEntity.Service(...this.args());
   }
 }
 
