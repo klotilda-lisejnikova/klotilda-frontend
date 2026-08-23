@@ -15,11 +15,13 @@
   },
   "checkoutResult": {
     "successTitle": "Objednávka přijata",
-    "successBody": "Děkujeme za váš nákup! Potvrzení vám přijde na e-mail.",
-    "cancelTitle": "Platba zrušena",
-    "cancelBody": "Platba nebyla dokončena. Vaše objednávka nebyla vytvořena.",
+    "successBody": "Objednávku jsme přijali a snížili sklad. Dokončete prosím platbu naskenováním QR kódu níže — potvrzení s platebními údaji jsme vám poslali i na e-mail.",
     "backHome": "Zpět na úvod",
-    "tryAgain": "Zkusit znovu"
+    "qrAlt": "QR kód pro platbu",
+    "qrHint": "Naskenujte v mobilním bankovnictví",
+    "account": "Číslo účtu",
+    "variableSymbol": "Variabilní symbol",
+    "amount": "Částka"
   },
   "checkout": {
     "steps": {
@@ -44,10 +46,8 @@
       "free": "Zdarma"
     },
     "payment": {
-      "card": "Platba kartou",
-      "qr": "QR platba",
-      "cardDesc": "Zabezpečená online platba kartou přes Comgate",
-      "qrDesc": "Zaplaťte QR kódem přes mobilní bankovnictví"
+      "qr": "Platba QR kódem",
+      "qrDesc": "Po odeslání objednávky naskenujte QR kód v mobilním bankovnictví, nebo zadejte platbu ručně podle zobrazených údajů."
     },
     "summary": {
       "items": "Položky",

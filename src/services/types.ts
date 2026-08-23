@@ -4,7 +4,6 @@ export type {
   ProductCategory,
   ImageField,
   ShippingMethod,
-  PaymentMethod,
   PaymentStatus,
   OrderStatus,
   PlaceOrderResponse,

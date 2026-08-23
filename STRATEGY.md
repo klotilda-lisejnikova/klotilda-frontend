@@ -312,9 +312,9 @@ Technické úkoly:
 ```env
 DATABASE_URL=postgresql://...
 JWT_SECRET=...
-COMGATE_MERCHANT_ID=...
-COMGATE_SECRET=...
-COMGATE_TEST=true     # false v produkci
+BANK_ACCOUNT_IBAN=CZ...          # QR platba (SPD) se generuje z tohohle
+BANK_ACCOUNT_BIC=...             # volitelné, přidá se do ACC pole QR kódu
+BANK_ACCOUNT_DISPLAY=123456789/0800  # volitelné, jinak se v UI/emailu zobrazí rovnou IBAN
 SMTP_HOST=mail.klotilda.cz
 SMTP_PORT=587
 SMTP_SECURE=false
@@ -323,9 +323,15 @@ SMTP_PASS=...
 FROM_EMAIL=info@klotilda.cz
 ADMIN_EMAIL=...       # váš Gmail — emailový server klotilda.cz přeposílá sem
 FRONTEND_URL=https://klotilda.cz
-NODE_AUTH_TOKEN=...   # GitHub Packages pro @eleansphere
+NODE_AUTH_TOKEN=...   # GitHub Packages pro @eleansphere a @klotilda-lisejnikova
 PORT=3001
 ```
+
+> Platba přes Comgate byla odstraněna (2026-08-23) — objednávky se teď platí přímo bankovním
+> převodem přes QR Platba kód (SPD formát), bez platební brány. Žádný webhook, žádné
+> `COMGATE_*` proměnné. Sklad se snižuje hned při vytvoření objednávky; `paymentStatus` se
+> nastavuje ručně v adminu (`PUT /api/orders/:id/status`) podle toho, co dorazí na účet
+> (spárováno přes variabilní symbol).
 
 ### klotilda-frontend
 

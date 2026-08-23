@@ -15,11 +15,13 @@
   },
   "checkoutResult": {
     "successTitle": "Order received",
-    "successBody": "Thank you for your purchase! A confirmation has been sent to your email.",
-    "cancelTitle": "Payment cancelled",
-    "cancelBody": "The payment was not completed. Your order was not created.",
+    "successBody": "Your order has been received and the stock reserved. Please complete payment by scanning the QR code below — a confirmation with the payment details was also sent to your email.",
     "backHome": "Back to home",
-    "tryAgain": "Try again"
+    "qrAlt": "Payment QR code",
+    "qrHint": "Scan with your mobile banking app",
+    "account": "Account number",
+    "variableSymbol": "Variable symbol",
+    "amount": "Amount"
   },
   "checkout": {
     "steps": {
@@ -44,10 +46,8 @@
       "free": "Free"
     },
     "payment": {
-      "card": "Pay by card",
-      "qr": "QR payment",
-      "cardDesc": "Secure online card payment via Comgate",
-      "qrDesc": "Pay by QR code via mobile banking"
+      "qr": "QR code payment",
+      "qrDesc": "After placing your order, scan the QR code in your mobile banking app, or enter the transfer manually using the details shown."
     },
     "summary": {
       "items": "Items",

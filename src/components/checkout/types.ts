@@ -1,4 +1,4 @@
-import { PaymentMethod, ShippingMethod } from "@/services";
+import { ShippingMethod } from "@/services";
 
 export interface CheckoutData {
   customerFirstName: string;
@@ -10,7 +10,6 @@ export interface CheckoutData {
   zip: string;
   shippingMethod: ShippingMethod;
   shippingPrice: number;
-  paymentMethod: PaymentMethod;
   notes: string;
 }
 
@@ -30,6 +29,5 @@ export const INITIAL_CHECKOUT: CheckoutData = {
   zip: "",
   shippingMethod: "zasilkovna",
   shippingPrice: 99,
-  paymentMethod: "card",
   notes: "",
 };

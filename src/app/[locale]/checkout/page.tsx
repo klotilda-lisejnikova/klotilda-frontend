@@ -3,13 +3,14 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
-import { services } from "@/services";
+import { services, PlaceOrderResponse } from "@/services";
 import { useCartStore } from "@/store/cart.store";
 import StepIndicator from "@/components/checkout/StepIndicator";
 import Step1Contact from "@/components/checkout/Step1Contact";
 import Step2Shipping from "@/components/checkout/Step2Shipping";
 import Step3Payment from "@/components/checkout/Step3Payment";
 import Step4Summary from "@/components/checkout/Step4Summary";
+import PaymentResult from "@/components/checkout/PaymentResult";
 import { CheckoutData, INITIAL_CHECKOUT } from "@/components/checkout/types";
 
 export default function CheckoutPage() {
@@ -19,6 +20,7 @@ export default function CheckoutPage() {
   const [data, setData] = useState<CheckoutData>(INITIAL_CHECKOUT);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<PlaceOrderResponse | null>(null);
 
   const update = (patch: Partial<CheckoutData>) =>
     setData((prev) => ({ ...prev, ...patch }));
@@ -27,7 +29,7 @@ export default function CheckoutPage() {
     setLoading(true);
     setError(null);
     try {
-      const { redirectUrl } = await services.orders.placeOrder({
+      const placed = await services.orders.placeOrder({
         customerFirstName: data.customerFirstName,
         customerLastName: data.customerLastName,
         customerEmail: data.customerEmail,
@@ -44,16 +46,24 @@ export default function CheckoutPage() {
           quantity: i.quantity,
         })),
         totalAmount: totalPrice() + data.shippingPrice,
-        paymentMethod: data.paymentMethod,
         notes: data.notes || undefined,
       });
       clearCart();
-      window.location.href = redirectUrl;
+      setResult(placed);
     } catch {
       setError("error");
+    } finally {
       setLoading(false);
     }
   };
+
+  if (result) {
+    return (
+      <section className="mx-auto max-w-lg px-4 py-16 sm:px-6">
+        <PaymentResult result={result} />
+      </section>
+    );
+  }
 
   if (items.length === 0 && step === 0) {
     return (
@@ -86,14 +96,7 @@ export default function CheckoutPage() {
           onBack={() => setStep(0)}
         />
       )}
-      {step === 2 && (
-        <Step3Payment
-          data={data}
-          onChange={update}
-          onNext={() => setStep(3)}
-          onBack={() => setStep(1)}
-        />
-      )}
+      {step === 2 && <Step3Payment onNext={() => setStep(3)} onBack={() => setStep(1)} />}
       {step === 3 && (
         <Step4Summary
           data={data}
