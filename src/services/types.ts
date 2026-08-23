@@ -1,4 +1,4 @@
-import type { productEntity, orderEntity } from '@klotilda/klotilda-service';
+import type { productEntity, orderEntity } from '@klotilda-lisejnikova/klotilda-service';
 
 export type {
   ProductCategory,
@@ -9,7 +9,7 @@ export type {
   OrderStatus,
   PlaceOrderResponse,
   CartItem as OrderItem,
-} from '@klotilda/klotilda-service';
+} from '@klotilda-lisejnikova/klotilda-service';
 
 export type Product = InstanceType<typeof productEntity.Dto>;
 export type CreateProduct = InstanceType<typeof productEntity.CreateDto>;

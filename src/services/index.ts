@@ -1,5 +1,5 @@
 import { AbstractServiceContainer } from '@eleansphere/service-core';
-import { productEntity, orderEntity } from '@klotilda/klotilda-service';
+import { productEntity, orderEntity } from '@klotilda-lisejnikova/klotilda-service';
 
 export * from './types';
 
