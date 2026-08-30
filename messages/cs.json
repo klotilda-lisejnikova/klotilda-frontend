@@ -112,7 +112,12 @@
     "gallery": {
       "number": "02",
       "title": "Galerie",
-      "subtitle": "Výběr z posledních prací"
+      "subtitle": "Výběr z posledních prací",
+      "categories": {
+        "keramika": "Keramika",
+        "textil": "Textil",
+        "vysivky": "Výšivky"
+      }
     },
     "cta": {
       "title": "Originály k prodeji",

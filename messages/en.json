@@ -112,7 +112,12 @@
     "gallery": {
       "number": "02",
       "title": "Gallery",
-      "subtitle": "A selection of recent works"
+      "subtitle": "A selection of recent works",
+      "categories": {
+        "keramika": "Ceramics",
+        "textil": "Textiles",
+        "vysivky": "Embroidery"
+      }
     },
     "cta": {
       "title": "Originals for Sale",

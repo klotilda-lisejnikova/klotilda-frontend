@@ -4,23 +4,47 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { getGalleryTranslations } from "@/i18n/home";
-import { artworks } from "@/data/artworks";
 import FadeIn from "@/components/ui/FadeIn";
 import type { Locale } from "@/types/locale";
+import type { GalleryItem, GalleryRow } from "@/services";
+
+const ROWS: GalleryRow[] = [1, 2];
+
+// Subtle per-category accent for the badge text (kept from the old hand-curated gallery).
+const CATEGORY_ACCENT: Record<string, string> = {
+  keramika: "#6b5e50",
+  textil: "#62574e",
+  vysivky: "#6e6050",
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: i * 0.1 },
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      delay: i * 0.1,
+    },
   }),
 };
 
-export default function GallerySection() {
+interface Props {
+  items: GalleryItem[];
+}
+
+export default function GallerySection({ items }: Props) {
   const t = useTranslations("home");
+  const tCat = useTranslations("home.gallery.categories");
   const gallery = getGalleryTranslations(t);
   const locale = useLocale() as Locale;
+
+  const rows = ROWS.map((row) =>
+    items.filter((item) => item.row === row),
+  ).filter((rowItems) => rowItems.length > 0);
+
+  if (rows.length === 0) return null;
 
   return (
     <section
@@ -46,54 +70,69 @@ export default function GallerySection() {
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {artworks.map((artwork, i) => (
-            <motion.article
-              key={artwork.id}
-              className="group"
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
+        <div className="flex flex-col gap-5">
+          {rows.map((rowItems, rowIndex) => (
+            <div
+              key={rowIndex}
+              className="-mx-4 flex snap-x snap-mandatory [scrollbar-width:none] gap-5 overflow-x-auto px-4 pb-1 [-ms-overflow-style:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden"
             >
-              <div className="relative overflow-hidden">
-                <div
-                  className="relative aspect-square w-full overflow-hidden transition-transform duration-700 group-hover:scale-105"
-                  style={{ background: artwork.gradient }}
-                >
-                  {artwork.image && (
-                    <Image
-                      src={artwork.image}
-                      alt={artwork.name[locale]}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  )}
-                  <div className="absolute top-3 right-3 z-10">
-                    <span
-                      className="px-2.5 py-1 text-[0.6rem] tracking-[0.2em] uppercase"
-                      style={{
-                        background: "rgba(250,250,248,0.82)",
-                        color: artwork.accent,
-                        backdropFilter: "blur(4px)",
-                      }}
+              {rowItems.map((item, i) => {
+                const title =
+                  locale === "en" && item.title_en
+                    ? item.title_en
+                    : item.title_cs;
+                const accent =
+                  (item.category && CATEGORY_ACCENT[item.category]) ||
+                  "#6b5e50";
+                return (
+                  <motion.article
+                    key={item.id}
+                    className="group w-[82%] shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+                    custom={i}
+                    variants={cardVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-60px" }}
+                  >
+                    <div className="relative overflow-hidden">
+                      <div className="relative aspect-square w-full overflow-hidden bg-stone-200 transition-transform duration-700 group-hover:scale-105">
+                        {item.images[0] && (
+                          <Image
+                            src={item.images[0].url}
+                            alt={title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 82vw, (max-width: 1024px) 50vw, 33vw"
+                          />
+                        )}
+                        {item.category && (
+                          <div className="absolute top-3 right-3 z-10">
+                            <span
+                              className="px-2.5 py-1 text-[0.6rem] tracking-[0.2em] uppercase"
+                              style={{
+                                background: "rgba(250,250,248,0.82)",
+                                color: accent,
+                                backdropFilter: "blur(4px)",
+                              }}
+                            >
+                              {tCat(item.category)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div
+                      className="border border-t-0 border-stone-200 px-4 py-3"
+                      style={{ background: "#fafaf8" }}
                     >
-                      {artwork.category[locale]}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="border border-t-0 border-stone-200 px-4 py-3"
-                style={{ background: "#fafaf8" }}
-              >
-                <p className="font-serif text-sm tracking-wide text-stone-700">
-                  {artwork.name[locale]}
-                </p>
-              </div>
-            </motion.article>
+                      <p className="font-serif text-sm tracking-wide text-stone-700">
+                        {title}
+                      </p>
+                    </div>
+                  </motion.article>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>

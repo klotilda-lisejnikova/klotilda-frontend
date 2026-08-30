@@ -2,12 +2,16 @@ import type {
   productEntity,
   orderEntity,
   ProductDto,
+  GalleryItemDto,
 } from "@klotilda-lisejnikova/klotilda-service";
 
 export type {
   ProductCategory,
   ProductDto,
   ProductImage,
+  GalleryItemDto,
+  GalleryImage,
+  GalleryRow,
   ShippingMethod,
   PaymentStatus,
   OrderStatus,
@@ -22,3 +26,6 @@ export type UpdateProduct = InstanceType<typeof productEntity.UpdateDto>;
 
 export type Order = InstanceType<typeof orderEntity.Dto>;
 export type CreateOrder = InstanceType<typeof orderEntity.CreateDto>;
+
+/** Read shape — includes the `images` array the API attaches from the file service. */
+export type GalleryItem = GalleryItemDto;
