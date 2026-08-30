@@ -2,27 +2,25 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { ImageField } from "@/services";
+import { ProductImage } from "@/services";
 
 interface Props {
-  imageUrls: Partial<Record<ImageField, string>>;
+  images: ProductImage[];
   alt: string;
 }
 
-const FIELDS: ImageField[] = ["image1", "image2", "image3"];
-
-export default function ProductGallery({ imageUrls, alt }: Props) {
-  const available = FIELDS.filter((f) => imageUrls[f]);
-  const [active, setActive] = useState<ImageField>(available[0] ?? "image1");
-  const [failed, setFailed] = useState<Set<ImageField>>(new Set());
+export default function ProductGallery({ images, alt }: Props) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [failed, setFailed] = useState<Set<string>>(new Set());
   const [loaded, setLoaded] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  const visible = available.filter((f) => !failed.has(f));
+  const visible = images.filter((img) => !failed.has(img.id));
+  const active = visible[activeIndex] ?? visible[0];
 
   useEffect(() => {
     setLoaded(false);
-  }, [active]);
+  }, [active?.id]);
 
   const closeLightbox = useCallback(() => setLightboxOpen(false), []);
 
@@ -30,18 +28,24 @@ export default function ProductGallery({ imageUrls, alt }: Props) {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") {
-        const idx = visible.indexOf(active);
-        if (idx < visible.length - 1) setActive(visible[idx + 1]);
-      }
-      if (e.key === "ArrowLeft") {
-        const idx = visible.indexOf(active);
-        if (idx > 0) setActive(visible[idx - 1]);
-      }
+      if (e.key === "ArrowRight")
+        setActiveIndex((i) => Math.min(visible.length - 1, i + 1));
+      if (e.key === "ArrowLeft") setActiveIndex((i) => Math.max(0, i - 1));
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxOpen, active, visible, closeLightbox]);
+  }, [lightboxOpen, visible.length, closeLightbox]);
+
+  if (!active) {
+    return <div className="aspect-square w-full bg-stone-100" />;
+  }
+
+  const markFailed = (id: string) =>
+    setFailed((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
 
   return (
     <>
@@ -53,46 +57,51 @@ export default function ProductGallery({ imageUrls, alt }: Props) {
           {!loaded && (
             <div className="absolute inset-0 animate-pulse bg-stone-200" />
           )}
-          {imageUrls[active] && (
-            <Image
-              key={active}
-              src={imageUrls[active]!}
-              alt={alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
-              priority
-              onLoad={() => setLoaded(true)}
-              onError={() =>
-                setFailed((prev) => {
-                  const next = new Set(prev);
-                  next.add(active);
-                  const fallback = visible.find((f) => f !== active);
-                  if (fallback) setActive(fallback);
-                  return next;
-                })
-              }
-            />
-          )}
-          <div className="absolute bottom-2 right-2 rounded-full bg-white/70 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-            <svg className="h-4 w-4 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+          <Image
+            key={active.id}
+            src={active.url}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className={`object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+            priority
+            onLoad={() => setLoaded(true)}
+            onError={() => {
+              markFailed(active.id);
+              setActiveIndex(0);
+            }}
+          />
+          <div className="absolute right-2 bottom-2 rounded-full bg-white/70 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
+            <svg
+              className="h-4 w-4 text-stone-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+              />
             </svg>
           </div>
         </div>
 
         {visible.length > 1 && (
           <div className="flex gap-2">
-            {visible.map((field) => (
+            {visible.map((img, i) => (
               <button
-                key={field}
-                onClick={() => setActive(field)}
+                key={img.id}
+                onClick={() => setActiveIndex(i)}
                 className={`relative h-20 w-20 shrink-0 overflow-hidden bg-stone-100 transition-opacity ${
-                  active === field ? "ring-2 ring-stone-800" : "opacity-60 hover:opacity-80"
+                  active.id === img.id
+                    ? "ring-2 ring-stone-800"
+                    : "opacity-60 hover:opacity-80"
                 }`}
               >
                 <Image
-                  src={imageUrls[field]!}
+                  src={img.url}
                   alt={alt}
                   fill
                   sizes="80px"
@@ -104,18 +113,28 @@ export default function ProductGallery({ imageUrls, alt }: Props) {
         )}
       </div>
 
-      {lightboxOpen && imageUrls[active] && (
+      {lightboxOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
           onClick={closeLightbox}
         >
           <button
             aria-label="Zavřít"
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/25"
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/25"
             onClick={closeLightbox}
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
@@ -124,29 +143,47 @@ export default function ProductGallery({ imageUrls, alt }: Props) {
               <button
                 aria-label="Předchozí"
                 className="absolute left-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/25 disabled:opacity-30"
-                disabled={visible.indexOf(active) === 0}
+                disabled={activeIndex === 0}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const idx = visible.indexOf(active);
-                  if (idx > 0) setActive(visible[idx - 1]);
+                  setActiveIndex((i) => Math.max(0, i - 1));
                 }}
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </button>
               <button
                 aria-label="Další"
                 className="absolute right-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/25 disabled:opacity-30"
-                disabled={visible.indexOf(active) === visible.length - 1}
+                disabled={activeIndex === visible.length - 1}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const idx = visible.indexOf(active);
-                  if (idx < visible.length - 1) setActive(visible[idx + 1]);
+                  setActiveIndex((i) => Math.min(visible.length - 1, i + 1));
                 }}
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </button>
             </>
@@ -157,7 +194,7 @@ export default function ProductGallery({ imageUrls, alt }: Props) {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={imageUrls[active]!}
+              src={active.url}
               alt={alt}
               fill
               sizes="90vw"
@@ -168,13 +205,16 @@ export default function ProductGallery({ imageUrls, alt }: Props) {
 
           {visible.length > 1 && (
             <div className="absolute bottom-4 flex gap-2">
-              {visible.map((field, i) => (
+              {visible.map((img, i) => (
                 <button
-                  key={field}
+                  key={img.id}
                   aria-label={`Obrázek ${i + 1}`}
-                  onClick={(e) => { e.stopPropagation(); setActive(field); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveIndex(i);
+                  }}
                   className={`h-2 w-2 rounded-full transition-colors ${
-                    active === field ? "bg-white" : "bg-white/40"
+                    active.id === img.id ? "bg-white" : "bg-white/40"
                   }`}
                 />
               ))}

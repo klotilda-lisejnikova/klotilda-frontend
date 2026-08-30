@@ -1,16 +1,22 @@
-import type { productEntity, orderEntity } from '@klotilda-lisejnikova/klotilda-service';
+import type {
+  productEntity,
+  orderEntity,
+  ProductDto,
+} from "@klotilda-lisejnikova/klotilda-service";
 
 export type {
   ProductCategory,
-  ImageField,
+  ProductDto,
+  ProductImage,
   ShippingMethod,
   PaymentStatus,
   OrderStatus,
   PlaceOrderResponse,
   CartItem as OrderItem,
-} from '@klotilda-lisejnikova/klotilda-service';
+} from "@klotilda-lisejnikova/klotilda-service";
 
-export type Product = InstanceType<typeof productEntity.Dto>;
+/** Read shape — includes the `images` array the API attaches from the file service. */
+export type Product = ProductDto;
 export type CreateProduct = InstanceType<typeof productEntity.CreateDto>;
 export type UpdateProduct = InstanceType<typeof productEntity.UpdateDto>;
 

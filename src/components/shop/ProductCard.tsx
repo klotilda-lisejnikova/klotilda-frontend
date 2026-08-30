@@ -4,11 +4,8 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { Product, ImageField } from "@/services";
-import { services } from "@/services";
+import { Product } from "@/services";
 import { useCartStore } from "@/store/cart.store";
-
-const FIELDS: ImageField[] = ["image1", "image2", "image3"];
 
 interface Props {
   product: Product;
@@ -20,19 +17,23 @@ export default function ProductCard({ product, locale }: Props) {
   const [loaded, setLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [failed, setFailed] = useState<Set<ImageField>>(new Set());
+  const [failed, setFailed] = useState<Set<string>>(new Set());
   const { items, addItem } = useCartStore();
 
-  const name = locale === "en" && product.name_en ? product.name_en : product.name_cs;
+  const name =
+    locale === "en" && product.name_en ? product.name_en : product.name_cs;
   const inStock = product.stockCount > 0;
   const inCart = items.some((i) => i.productId === product.id);
-  const available = FIELDS.filter((f) => !failed.has(f));
-  const activeField = available[activeIndex] ?? "image1";
+  const available = product.images.filter((img) => !failed.has(img.id));
+  const activeImage = available[activeIndex] ?? available[0];
+
+  const markFailed = (id: string) => setFailed((p) => new Set([...p, id]));
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (inStock && !inCart) addItem({ productId: product.id, name, price: product.price });
+    if (inStock && !inCart)
+      addItem({ productId: product.id, name, price: product.price });
   };
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -50,41 +51,36 @@ export default function ProductCard({ product, locale }: Props) {
   return (
     <Link href={`/shop/${product.id}`} className="group block">
       <div className="overflow-hidden rounded-sm bg-white shadow-sm ring-1 ring-stone-100 transition-shadow duration-300 group-hover:shadow-md group-hover:ring-stone-200">
-
         {/* ── Image ── */}
         <div
           className="relative aspect-square overflow-hidden bg-stone-50"
           onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => { setHovered(false); setActiveIndex(0); }}
+          onMouseLeave={() => {
+            setHovered(false);
+            setActiveIndex(0);
+          }}
         >
-          {!loaded && <div className="absolute inset-0 animate-pulse bg-stone-100" />}
+          {(!loaded || available.length === 0) && (
+            <div className="absolute inset-0 animate-pulse bg-stone-100" />
+          )}
 
-          <Image
-            src={services.products.getImageUrl(product.id, "image1")}
-            alt={name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className={`object-cover transition-all duration-500 group-hover:scale-[1.03] ${
-              activeField === "image1" || failed.has(activeField) ? "opacity-100" : "opacity-0"
-            }`}
-            onLoad={() => setLoaded(true)}
-            onError={() => setFailed((p) => new Set([...p, "image1"]))}
-          />
-
-          {hovered &&
-            FIELDS.slice(1).map((f) => (
+          {available.map((img, i) => {
+            if (i > 0 && !hovered) return null;
+            return (
               <Image
-                key={f}
-                src={services.products.getImageUrl(product.id, f)}
+                key={img.id}
+                src={img.url}
                 alt={name}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className={`object-cover transition-all duration-500 group-hover:scale-[1.03] ${
-                  activeField === f ? "opacity-100" : "opacity-0"
+                  activeImage?.id === img.id ? "opacity-100" : "opacity-0"
                 }`}
-                onError={() => setFailed((p) => new Set([...p, f]))}
+                onLoad={i === 0 ? () => setLoaded(true) : undefined}
+                onError={() => markFailed(img.id)}
               />
-            ))}
+            );
+          })}
 
           {/* Sold-out overlay */}
           {!inStock && (
@@ -102,24 +98,44 @@ export default function ProductCard({ product, locale }: Props) {
                 aria-label="Předchozí"
                 disabled={activeIndex === 0}
                 onClick={handlePrev}
-                className={`absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/25 p-1 text-white backdrop-blur-sm transition-opacity duration-200 disabled:opacity-20 ${
+                className={`absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/25 p-1 text-white backdrop-blur-sm transition-opacity duration-200 disabled:opacity-20 ${
                   hovered ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </button>
               <button
                 aria-label="Další"
                 disabled={activeIndex === available.length - 1}
                 onClick={handleNext}
-                className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/25 p-1 text-white backdrop-blur-sm transition-opacity duration-200 disabled:opacity-20 ${
+                className={`absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/25 p-1 text-white backdrop-blur-sm transition-opacity duration-200 disabled:opacity-20 ${
                   hovered ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </button>
             </>
@@ -148,7 +164,9 @@ export default function ProductCard({ product, locale }: Props) {
           {inStock && (
             <div
               className={`absolute inset-x-0 bottom-0 transition-all duration-200 ease-out ${
-                hovered ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                hovered
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-full opacity-0"
               }`}
             >
               <button
@@ -162,15 +180,35 @@ export default function ProductCard({ product, locale }: Props) {
               >
                 {inCart ? (
                   <>
-                    <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="h-3.5 w-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     {t("inCart")}
                   </>
                 ) : (
                   <>
-                    <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    <svg
+                      className="h-3.5 w-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.75}
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                      />
                     </svg>
                     {t("addToCart")}
                   </>
@@ -195,7 +233,12 @@ export default function ProductCard({ product, locale }: Props) {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </div>
 
@@ -205,7 +248,9 @@ export default function ProductCard({ product, locale }: Props) {
                 <span className="inline-flex items-center gap-1.5 text-xs text-emerald-600">
                   <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                   {t("inStock")}
-                  <span className="text-emerald-500/70">({product.stockCount}&nbsp;ks)</span>
+                  <span className="text-emerald-500/70">
+                    ({product.stockCount}&nbsp;ks)
+                  </span>
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1.5 text-xs text-rose-500">
@@ -216,7 +261,7 @@ export default function ProductCard({ product, locale }: Props) {
             </div>
           </div>
 
-          <p className="shrink-0 text-sm font-semibold tabular-nums text-stone-800">
+          <p className="shrink-0 text-sm font-semibold text-stone-800 tabular-nums">
             {product.price.toLocaleString("cs-CZ")}&nbsp;{t("currency")}
           </p>
         </div>

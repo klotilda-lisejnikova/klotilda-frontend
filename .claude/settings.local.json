@@ -27,7 +27,14 @@
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\klotilda\\\\klotilda-frontend\" -Recurse -Depth 2)",
       "PowerShell(tree \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\klotilda\\\\klotilda-frontend\\\\src\" -L 3)",
       "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\klotilda\\\\klotilda-frontend\\\\src\" -Recurse | Select-Object FullName, PSIsContainer | Where-Object {$_.PSIsContainer -eq $false -or $_.FullName -notmatch \"\\\\.next\"})",
-      "Skill(frontend-design)"
+      "Skill(frontend-design)",
+      "Bash(node -e \"const pkg = require\\('./node_modules/next/package.json'\\); console.log\\(pkg.version\\)\")",
+      "Bash(grep -E \"bcrypt|pg$\")",
+      "Bash(dir \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\klotilda\\\\klotilda-api\\\\node_modules\" /b)",
+      "Bash(findstr /i \"bcrypt\\\\|^pg$\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\frane\\\\Documents\\\\projekty\\\\klotilda\\\\klotilda-admin\" -Name | Where-Object { $_ -notlike \"node_modules\" })",
+      "PowerShell(New-Item *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
