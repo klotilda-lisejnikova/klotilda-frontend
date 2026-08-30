@@ -10,8 +10,8 @@
     "install-new-service": "npm install @klotilda-lisejnikova/klotilda-service@latest @eleansphere/service-core@latest"
   },
   "dependencies": {
-    "@eleansphere/service-core": "^1.5.1",
-    "@klotilda-lisejnikova/klotilda-service": "^2.0.0",
+    "@eleansphere/service-core": "^1.6.0",
+    "@klotilda-lisejnikova/klotilda-service": "^3.0.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^12.39.0",
