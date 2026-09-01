@@ -114,7 +114,7 @@ export default function CartDrawer() {
       <button
         onClick={() => setOpen(true)}
         aria-label={t("title")}
-        className="relative text-stone-600 transition-colors hover:text-stone-900"
+        className="relative text-stone-600 transition-colors hover:text-moss"
       >
         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

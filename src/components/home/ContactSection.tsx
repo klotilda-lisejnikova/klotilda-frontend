@@ -12,37 +12,29 @@ export default function ContactSection() {
   return (
     <section id="contact" className="scroll-mt-16 py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
-        <FadeIn className="mb-16 flex items-end gap-3">
-          <span
-            className="font-serif text-9xl leading-none font-light text-stone-200 select-none"
-            aria-hidden="true"
-          >
-            {contact.number}
-          </span>
-          <div className="mb-2">
-            <h2 className="font-serif text-2xl font-light tracking-[0.2em] text-stone-800">
-              {contact.title}
-            </h2>
-            <p className="mt-1 text-xs tracking-widest text-stone-500">
-              {contact.subtitle}
-            </p>
-          </div>
+        <FadeIn className="mb-16 text-center">
+          <h2 className="font-serif text-4xl font-light tracking-[0.15em] text-stone-800 md:text-5xl">
+            {contact.title}
+          </h2>
+          <p className="mt-4 text-xs tracking-widest text-stone-500">
+            {contact.subtitle}
+          </p>
         </FadeIn>
 
         <FadeIn
           delay={0.2}
-          className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-0"
+          className="flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-0"
         >
           <a
             href={`mailto:${contact.email}`}
-            className="group flex items-center gap-5 text-stone-600 transition-colors hover:text-stone-900"
+            className="group flex items-center gap-5 text-stone-600 transition-colors hover:text-moss"
           >
             <motion.div
               className="flex h-14 w-14 items-center justify-center rounded-full border border-stone-200"
               whileHover={{
                 scale: 1.12,
-                backgroundColor: "rgba(214,197,178,0.22)",
-                borderColor: "#a8967e",
+                backgroundColor: "rgba(86,112,66,0.12)",
+                borderColor: "#567042",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
@@ -69,7 +61,7 @@ export default function ContactSection() {
           </a>
 
           <div
-            className="h-px w-10 bg-stone-200 sm:mx-12 sm:h-10 sm:w-px"
+            className="hidden bg-stone-200 sm:mx-12 sm:block sm:h-10 sm:w-px"
             aria-hidden="true"
           />
 
@@ -77,14 +69,14 @@ export default function ContactSection() {
             href="https://instagram.com/klotilda.lisejnikova"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-5 text-stone-600 transition-colors hover:text-stone-900"
+            className="group flex items-center gap-5 text-stone-600 transition-colors hover:text-moss"
           >
             <motion.div
               className="flex h-14 w-14 items-center justify-center rounded-full border border-stone-200"
               whileHover={{
                 scale: 1.12,
-                backgroundColor: "rgba(214,197,178,0.22)",
-                borderColor: "#a8967e",
+                backgroundColor: "rgba(86,112,66,0.12)",
+                borderColor: "#567042",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >

@@ -14,23 +14,15 @@ export default function AboutSection() {
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
           <FadeIn direction="left" className="flex flex-col justify-center">
-            <div className="mb-8 flex items-end gap-3">
-              <span
-                className="font-serif text-9xl leading-none font-light text-stone-200 select-none"
-                aria-hidden="true"
-              >
-                {about.number}
-              </span>
-              <h2 className="mb-2 font-serif text-2xl font-light tracking-[0.2em] text-stone-800">
-                {about.title}
-              </h2>
-            </div>
+            <h2 className="mb-8 font-serif text-4xl font-light tracking-[0.15em] text-stone-800 md:text-5xl">
+              {about.title}
+            </h2>
 
             <p className="mb-5 leading-relaxed text-stone-600">{about.bio1}</p>
             <p className="mb-10 leading-relaxed text-stone-600">{about.bio2}</p>
 
             <div className="flex flex-wrap gap-2">
-              {(["ceramics", "textiles", "embroidery"] as const).map(
+              {(["ceramics", "embroidery", "linocut"] as const).map(
                 (craft) => (
                   <span
                     key={craft}
@@ -44,9 +36,9 @@ export default function AboutSection() {
           </FadeIn>
 
           <FadeIn direction="right" delay={0.15} className="relative">
-            <div className="relative aspect-[4/5] w-full overflow-hidden">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md">
               <Image
-                src="/images/me_portrait.jpg"
+                src="/images/klotilda_about.webp"
                 alt="Klotilda — ateliér"
                 fill
                 className="object-cover"

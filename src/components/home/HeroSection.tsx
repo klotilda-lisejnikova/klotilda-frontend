@@ -29,17 +29,6 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 flex flex-col items-center">
-        <p
-          className="mb-8 text-sm tracking-[0.45em] uppercase"
-          style={{
-            animation: "fade-up 0.9s ease both",
-            color: "#ffffff",
-            textShadow: "0 1px 12px rgba(0,0,0,0.5)",
-          }}
-        >
-          Praha · Česká republika
-        </p>
-
         <h1
           className="font-serif text-7xl font-light tracking-[0.15em] md:text-[9rem] md:leading-none"
           style={{
@@ -83,9 +72,8 @@ export default function HeroSection() {
       <a
         href="#about"
         aria-label={hero.scroll}
-        className="absolute bottom-10 flex flex-col items-center gap-3 transition-colors"
+        className="hero-scroll absolute bottom-10 flex flex-col items-center gap-3"
         style={{
-          color: "rgba(255,255,255,0.7)",
           animation: "fade-up 0.9s ease both",
           animationDelay: "0.6s",
         }}

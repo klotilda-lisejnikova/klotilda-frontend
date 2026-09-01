@@ -149,7 +149,7 @@ export default async function ShopPage({ params, searchParams }: Props) {
   const { locale } = await params;
   const { category, page } = await searchParams;
 
-  const validCategories: ProductCategory[] = ["keramika", "textil", "vysivky"];
+  const validCategories: ProductCategory[] = ["keramika", "vysivka", "linoryt"];
   const activeCategory = validCategories.includes(category as ProductCategory)
     ? (category as ProductCategory)
     : undefined;

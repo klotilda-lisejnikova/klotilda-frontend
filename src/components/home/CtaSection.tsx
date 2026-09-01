@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getCtaTranslations } from "@/i18n/home";
 import FadeIn from "@/components/ui/FadeIn";
+import { SHOP_ENABLED } from "@/lib/features";
 
 export default function CtaSection() {
   const t = useTranslations("home");
@@ -30,8 +31,10 @@ export default function CtaSection() {
             fill="none"
             className="text-stone-600/40"
           >
-            <rect x="6" y="0" width="2" height="14" fill="currentColor" />
-            <rect x="0" y="6" width="14" height="2" fill="currentColor" />
+            <path
+              d="M7 0Q7 7 14 7Q7 7 7 14Q7 7 0 7Q7 7 7 0Z"
+              fill="currentColor"
+            />
           </svg>
           <div className="h-px w-12 bg-stone-600/30" />
         </div>
@@ -42,12 +45,26 @@ export default function CtaSection() {
         <p className="mt-5 text-sm tracking-wide text-stone-600">
           {cta.subtitle}
         </p>
-        <Link
-          href="/shop"
-          className="mt-10 inline-block border border-stone-700 px-10 py-3.5 text-[0.7rem] tracking-[0.3em] text-stone-700 uppercase transition-all hover:bg-stone-700 hover:text-[#fafaf8]"
-        >
-          {cta.button}
-        </Link>
+        {SHOP_ENABLED ? (
+          <Link
+            href="/shop"
+            className="mt-10 inline-block border border-stone-700 px-10 py-3.5 text-[0.7rem] tracking-[0.3em] text-stone-700 uppercase transition-all hover:border-moss hover:bg-moss hover:text-[#fafaf8]"
+          >
+            {cta.button}
+          </Link>
+        ) : (
+          <div className="mt-10 flex flex-col items-center gap-3">
+            <span className="text-[0.7rem] tracking-[0.3em] text-stone-500 uppercase">
+              {cta.soon}
+            </span>
+            <a
+              href="#contact"
+              className="text-sm tracking-wide text-stone-700 underline underline-offset-4 transition-colors hover:text-moss"
+            >
+              {cta.soonLink}
+            </a>
+          </div>
+        )}
       </FadeIn>
     </section>
   );

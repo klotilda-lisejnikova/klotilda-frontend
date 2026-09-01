@@ -8,8 +8,8 @@ import { ProductCategory } from "@/services";
 const CATEGORIES: Array<ProductCategory | "all"> = [
   "all",
   "keramika",
-  "textil",
-  "vysivky",
+  "vysivka",
+  "linoryt",
 ];
 
 export default function CategoryFilter() {

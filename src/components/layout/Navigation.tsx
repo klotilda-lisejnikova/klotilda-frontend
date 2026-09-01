@@ -20,7 +20,7 @@ export default function Navigation({ links }: { links: NavLink[] }) {
           <Link
             key={link.href}
             href={link.href}
-            className="text-sm tracking-wide text-stone-600 transition-colors hover:text-stone-900"
+            className="text-sm tracking-wide text-stone-600 transition-colors hover:text-moss"
           >
             {link.label}
           </Link>
@@ -70,7 +70,7 @@ export default function Navigation({ links }: { links: NavLink[] }) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-sm tracking-wide text-stone-600 transition-colors hover:text-stone-900"
+                className="text-sm tracking-wide text-stone-600 transition-colors hover:text-moss"
               >
                 {link.label}
               </Link>
