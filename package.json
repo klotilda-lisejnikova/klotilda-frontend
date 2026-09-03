@@ -6,11 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "install-new-service": "npm install @klotilda-lisejnikova/klotilda-service@latest @eleansphere/service-core@latest"
   },
   "dependencies": {
+    "@eleansphere/service-core": "^1.6.0",
+    "@klotilda-lisejnikova/klotilda-service": "^4.0.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "framer-motion": "^12.39.0",
     "next": "15.5.18",
     "next-intl": "^4.12.0",
     "react": "19.1.0",

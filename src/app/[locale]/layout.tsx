@@ -25,6 +25,13 @@ export async function generateMetadata({
       template: `%s | Klotilda`,
     },
     description: t("description"),
+    icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "any" },
+      ],
+      apple: "/apple-icon.png",
+    },
     openGraph: {
       title: t("title"),
       description: t("description"),
