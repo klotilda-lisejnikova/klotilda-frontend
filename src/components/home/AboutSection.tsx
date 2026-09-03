@@ -10,7 +10,14 @@ export default function AboutSection() {
   const about = getAboutTranslations(t);
 
   return (
-    <section id="about" className="scroll-mt-16 py-28 md:py-36">
+    <section
+      id="about"
+      className="relative z-10 scroll-mt-16 bg-[#fafaf8] py-28 md:py-36"
+      style={{
+        marginTop: "calc(-50vh - 4rem)",
+        boxShadow: "0 -26px 55px -18px rgba(38, 46, 32, 0.42)",
+      }}
+    >
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
           <FadeIn direction="left" className="flex flex-col justify-center">

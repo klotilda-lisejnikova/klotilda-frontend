@@ -12,10 +12,12 @@ export default function CtaSection() {
 
   return (
     <section
-      className="py-28 md:py-36"
+      className="relative z-30 py-28 md:py-36"
       style={{
         background:
           "linear-gradient(135deg, #e8dece 0%, #d9c9ae 50%, #ccbb9c 100%)",
+        marginTop: "-3rem",
+        boxShadow: "0 -20px 44px -22px rgba(55, 48, 38, 0.22)",
       }}
     >
       <FadeIn className="mx-auto max-w-2xl px-4 text-center">
